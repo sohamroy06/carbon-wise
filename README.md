@@ -220,6 +220,52 @@ The state-level grid intensity data ensures that an EV charged in coal-heavy Jha
 
 ---
 
+## 🚢 Deployment
+
+### Backend on Render
+
+Create a new **Web Service** from the backend folder and use these settings:
+
+- **Root directory:** `backend`
+- **Runtime:** Node
+- **Build command:** `npm install`
+- **Start command:** `npm start`
+- **Instance type:** free or paid, depending on expected traffic
+
+Set these environment variables in Render:
+
+- `NODE_ENV=production`
+- `PORT=10000` or leave Render to inject its own port
+- `CORS_ORIGIN=https://your-site.netlify.app`
+
+Optional if you want to allow local testing from the deployed API:
+
+- `CORS_ORIGINS=https://your-site.netlify.app,http://localhost:5173`
+
+Important notes for Render:
+
+- The app uses `sql.js`, so the SQLite file is rebuilt from seed data if the filesystem is empty.
+- This means the service is fine for demo/read-mostly deployments, but it is not a durable database.
+- If you need persistence across redeploys, move the data layer to Render Postgres or another external database.
+
+### Frontend on Netlify
+
+Create a new **site** from the repository root and configure:
+
+- **Base directory:** repository root
+- **Build command:** `cd frontend && npm install && npm run build`
+- **Publish directory:** `frontend/dist`
+
+Set this environment variable in Netlify:
+
+- `VITE_API_BASE_URL=https://your-backend.onrender.com`
+
+This makes the browser call `https://your-backend.onrender.com/api/...` instead of the local Vite proxy path.
+
+The included Netlify redirect below keeps React Router routes working on refresh and direct navigation.
+
+---
+
 ## 🤝 Contributing
 
 1. Fork the repository

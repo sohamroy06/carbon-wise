@@ -1,4 +1,5 @@
-const API_BASE = '/api';
+const API_ROOT = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || '';
+const API_BASE = API_ROOT ? `${API_ROOT}/api` : '/api';
 
 async function safeFetch(url, options) {
   const res = await fetch(url, options);
