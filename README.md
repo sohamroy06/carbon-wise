@@ -250,11 +250,11 @@ Important notes for Render:
 
 ### Frontend on Netlify
 
-Create a new **site** from the repository root and configure:
+Create a new **site** with `frontend` as the base directory and configure:
 
-- **Base directory:** repository root
-- **Build command:** `cd frontend && npm install && npm run build`
-- **Publish directory:** `frontend/dist`
+- **Base directory:** `frontend`
+- **Build command:** `npm install && npm run build`
+- **Publish directory:** `dist`
 
 Set this environment variable in Netlify:
 
